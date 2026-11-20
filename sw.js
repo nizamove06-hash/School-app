@@ -1,7 +1,7 @@
-const VERSION = 'v1';                       // поменяй на v2, v3..., если захочешь принудительно сбросить кэш
+const VERSION = 'v3';
 const CORE  = 'schedule-core-' + VERSION;
 const FONTS = 'schedule-fonts-v1';
-const CORE_ASSETS = ['./', './index.html', './manifest.json', './icon.svg'];
+const CORE_ASSETS = ['./', './index.html', './manifest.json', './icon.svg', './extras.js', './phone.js'];
 
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -16,6 +16,19 @@ self.addEventListener('activate', e => {
         keys.filter(k => k.startsWith('schedule-core-') && k !== CORE).map(k => caches.delete(k))
       ))
       .then(() => self.clients.claim())
+  );
+});
+
+// Нажатие на уведомление открывает приложение
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+      for (const c of list) {
+        if ('focus' in c) return c.focus();
+      }
+      return self.clients.openWindow('./');
+    })
   );
 });
 
