@@ -4,15 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Школьное расписание</title>
+
+<!-- Шрифты (все с кириллицей) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Comfortaa:wght@400..700&family=Exo+2:wght@400..800&family=Inter:wght@400..800&family=JetBrains+Mono:wght@400..800&family=Manrope:wght@400..800&family=Montserrat:wght@400..800&family=Nunito:wght@400..800&family=Playfair+Display:wght@400..800&family=Rubik:wght@400..800&family=Unbounded:wght@400..800&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --ease:cubic-bezier(.22,1,.36,1);
+  --font:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;
   --bg:#0d0b1e; --text:#f1f0ff; --muted:#a9a6cc;
   --card:rgba(255,255,255,.07); --border:rgba(255,255,255,.14);
   --accent:#8b7bff; --accent2:#43d9ff; --on:#fff;
-  --b1:#6c4bff; --b2:#00c2ff; --b3:#ff4fd8; --blob-o:.45;
-  --shadow:0 20px 50px rgba(0,0,0,.35);
+  --b1:#6c4bff; --b2:#00c2ff; --b3:#ff4fd8;
+  --blob-o:.45; --shadow:0 20px 50px rgba(0,0,0,.35);
 }
+
+/* ===== Старые темы ===== */
 [data-theme="sunset"]{--bg:#1e0f14;--text:#fff1ea;--muted:#d9a99a;--accent:#ff7a59;--accent2:#ffc857;--b1:#ff5e62;--b2:#ff9966;--b3:#c33764;--card:rgba(255,255,255,.07);--border:rgba(255,255,255,.14);--on:#2a0f0a}
 [data-theme="ocean"]{--bg:#06141f;--text:#e6f6ff;--muted:#8fb6cc;--accent:#2dd4ff;--accent2:#3b82f6;--b1:#0ea5e9;--b2:#2563eb;--b3:#14b8a6;--on:#03202e}
 [data-theme="forest"]{--bg:#0a1710;--text:#eafff1;--muted:#92b8a0;--accent:#4ade80;--accent2:#bef264;--b1:#16a34a;--b2:#65a30d;--b3:#0d9488;--on:#052212}
@@ -20,10 +29,20 @@
 [data-theme="light"]{--bg:#f1f4fb;--text:#1b1f3a;--muted:#626a8f;--card:rgba(255,255,255,.72);--border:rgba(30,40,100,.12);--accent:#5b5bf0;--accent2:#06b6d4;--b1:#a5b4fc;--b2:#67e8f9;--b3:#f9a8d4;--blob-o:.7;--shadow:0 20px 50px rgba(60,70,140,.18);--on:#fff}
 [data-theme="sakura"]{--bg:#fff1f5;--text:#3b1d2a;--muted:#96637a;--card:rgba(255,255,255,.72);--border:rgba(150,40,90,.14);--accent:#ec4899;--accent2:#fb7185;--b1:#fbcfe8;--b2:#fda4af;--b3:#c4b5fd;--blob-o:.75;--shadow:0 20px 50px rgba(190,60,110,.18);--on:#fff}
 
+/* ===== НОВЫЕ ТЕМЫ ===== */
+[data-theme="lavender"]{--bg:#120e24;--text:#f3eeff;--muted:#b5a9d9;--accent:#b18cff;--accent2:#7c9cff;--b1:#9b6bff;--b2:#6d8bff;--b3:#e08cff;--on:#1a0f33}
+[data-theme="gold"]{--bg:#15110a;--text:#fff6e0;--muted:#c9b58a;--accent:#ffc83d;--accent2:#ff9a1f;--b1:#f5a623;--b2:#c77d0a;--b3:#ffd86b;--on:#2a1b00;--blob-o:.35}
+[data-theme="ruby"]{--bg:#16060b;--text:#ffecef;--muted:#d49aa5;--accent:#ff3b5c;--accent2:#ff7a8a;--b1:#e11d48;--b2:#9f1239;--b3:#fb7185;--on:#fff}
+[data-theme="ice"]{--bg:#07131c;--text:#eaf8ff;--muted:#9bbfd1;--accent:#9fe7ff;--accent2:#7aa8ff;--b1:#67d4ff;--b2:#4f7cff;--b3:#b9f0ff;--on:#04202e}
+[data-theme="graphite"]{--bg:#0c0c0e;--text:#f2f2f4;--muted:#9a9aa3;--accent:#e5e7eb;--accent2:#9ca3af;--b1:#4b5563;--b2:#1f2937;--b3:#6b7280;--on:#111114;--blob-o:.4}
+[data-theme="coffee"]{--bg:#1a110c;--text:#f7ebe0;--muted:#c2a58c;--accent:#d4a373;--accent2:#e9c46a;--b1:#8b5a3c;--b2:#5c3b28;--b3:#c68b59;--on:#24150c;--blob-o:.4}
+[data-theme="mint"]{--bg:#effaf5;--text:#12382b;--muted:#5d8a79;--card:rgba(255,255,255,.72);--border:rgba(20,100,70,.14);--accent:#10b981;--accent2:#06b6d4;--b1:#a7f3d0;--b2:#99f6e4;--b3:#bef264;--blob-o:.75;--shadow:0 20px 50px rgba(20,120,90,.16);--on:#fff}
+[data-theme="peach"]{--bg:#fff4ec;--text:#3d2316;--muted:#9a6e55;--card:rgba(255,255,255,.72);--border:rgba(160,80,30,.14);--accent:#f97316;--accent2:#f43f5e;--b1:#fed7aa;--b2:#fecdd3;--b3:#fde68a;--blob-o:.75;--shadow:0 20px 50px rgba(200,100,40,.18);--on:#fff}
+
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;
+  font-family:var(--font);
   background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;
   transition:background-color .6s var(--ease),color .6s var(--ease);
 }
@@ -83,7 +102,6 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;ma
 .icon-btn:hover{transform:scale(1.08)}
 .icon-btn svg{width:22px;height:22px;transition:transform .8s var(--ease)}
 .icon-btn:hover svg{transform:rotate(120deg)}
-
 .hero{text-align:center;margin-bottom:38px}
 .hero h1{font-size:clamp(32px,6vw,56px);line-height:1.1;font-weight:850;margin-bottom:12px;
   background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent));background-size:200% auto;
@@ -97,8 +115,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;ma
 .time-btn{
   position:relative;overflow:hidden;text-align:left;padding:22px 20px;border-radius:24px;
   background:var(--card);border:1px solid var(--border);backdrop-filter:blur(16px);box-shadow:var(--shadow);
-  transition:transform .5s var(--ease),border-color .3s,background .4s;isolation:isolate;
-}
+  transition:transform .5s var(--ease),border-color .3s,background .4s;isolation:isolate;}
 .time-btn::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .4s;
   background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--accent) 35%,transparent),transparent 70%)}
 .time-btn:hover{transform:translateY(-6px)}
@@ -205,6 +222,17 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,va
 .theme.sel{border-color:var(--accent)}
 .sw{width:34px;height:34px;border-radius:50%;flex:none;box-shadow:inset 0 0 0 2px rgba(255,255,255,.2);transition:transform .6s var(--ease)}
 .theme:hover .sw{transform:rotate(180deg)}
+
+/* Выбор шрифта */
+.fonts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.font-btn{padding:10px 12px;border-radius:16px;background:var(--card);border:2px solid transparent;display:flex;align-items:center;gap:10px;text-align:left;font-weight:600;font-size:15px;
+  transition:transform .4s var(--ease),border-color .3s,background .3s}
+.font-btn:hover{transform:translateY(-3px) scale(1.03)}
+.font-btn.sel{border-color:var(--accent)}
+.font-btn .aa{width:38px;height:38px;border-radius:12px;flex:none;display:grid;place-items:center;font-size:19px;font-weight:700;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--on)}
+.font-btn .fn{line-height:1.15;overflow:hidden;text-overflow:ellipsis}
+
 .switch{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
 .switch input{display:none}
 .knob{width:52px;height:30px;border-radius:30px;background:color-mix(in srgb,var(--text) 22%,transparent);position:relative;transition:background .4s}
@@ -346,27 +374,56 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px}
   </div>
 
   <div class="sec" style="--i:4">
+    <h4>Шрифт</h4>
+    <div class="fonts" id="fonts"></div>
+  </div>
+
+  <div class="sec" style="--i:5">
     <h4>Прочее</h4>
     <label class="switch"><span>Анимации</span><input type="checkbox" id="animToggle"><span class="knob"></span></label>
   </div>
 
-  <div class="sec" style="--i:5">
+  <div class="sec" style="--i:6">
     <button class="btn" id="reset">↺ Сбросить настройки</button>
   </div>
 </aside>
 
 <script>
 const $ = s => document.querySelector(s);
-const DEF = {lessonLen:45, breakLen:10, lessons:6, bigAfter:3, bigLen:20,
-  starts:['08:00','10:00','14:00','16:00'], custom:'09:30', theme:'aurora', anim:true, selected:null};
+const DEF = {lessonLen:45, breakLen:10, lessons:6, bigAfter:3, bigLen:20, starts:['08:00','10:00','14:00','16:00'], custom:'09:30', theme:'aurora', font:'system', anim:true, selected:null};
+
 const THEMES = [
-  {id:'aurora', name:'Аврора', c:['#6c4bff','#00c2ff','#ff4fd8']},
-  {id:'sunset', name:'Закат',  c:['#ff5e62','#ff9966','#c33764']},
-  {id:'ocean',  name:'Океан',  c:['#0ea5e9','#2563eb','#14b8a6']},
-  {id:'forest', name:'Лес',    c:['#16a34a','#65a30d','#0d9488']},
-  {id:'neon',   name:'Неон',   c:['#00ff9d','#7a00ff','#ff2bd6']},
-  {id:'light',  name:'Светлая',c:['#a5b4fc','#67e8f9','#f9a8d4']},
-  {id:'sakura', name:'Сакура', c:['#fbcfe8','#fda4af','#c4b5fd']},
+  {id:'aurora',  name:'Аврора',   c:['#6c4bff','#00c2ff','#ff4fd8']},
+  {id:'sunset',  name:'Закат',    c:['#ff5e62','#ff9966','#c33764']},
+  {id:'ocean',   name:'Океан',    c:['#0ea5e9','#2563eb','#14b8a6']},
+  {id:'forest',  name:'Лес',      c:['#16a34a','#65a30d','#0d9488']},
+  {id:'neon',    name:'Неон',     c:['#00ff9d','#7a00ff','#ff2bd6']},
+  {id:'light',   name:'Светлая',  c:['#a5b4fc','#67e8f9','#f9a8d4']},
+  {id:'sakura',  name:'Сакура',   c:['#fbcfe8','#fda4af','#c4b5fd']},
+  // новые
+  {id:'lavender',name:'Лаванда',  c:['#9b6bff','#6d8bff','#e08cff']},
+  {id:'gold',    name:'Золото',   c:['#f5a623','#c77d0a','#ffd86b']},
+  {id:'ruby',    name:'Рубин',    c:['#e11d48','#9f1239','#fb7185']},
+  {id:'ice',     name:'Лёд',      c:['#67d4ff','#4f7cff','#b9f0ff']},
+  {id:'graphite',name:'Графит',   c:['#4b5563','#1f2937','#9ca3af']},
+  {id:'coffee',  name:'Кофе',     c:['#8b5a3c','#5c3b28','#c68b59']},
+  {id:'mint',    name:'Мята',     c:['#a7f3d0','#99f6e4','#bef264']},
+  {id:'peach',   name:'Персик',   c:['#fed7aa','#fecdd3','#fde68a']},
+];
+
+const FONTS = [
+  {id:'system',    name:'Системный',        css:"'Segoe UI',system-ui,-apple-system,Roboto,sans-serif"},
+  {id:'inter',     name:'Inter',            css:"'Inter',system-ui,sans-serif"},
+  {id:'montserrat',name:'Montserrat',       css:"'Montserrat',system-ui,sans-serif"},
+  {id:'nunito',    name:'Nunito',           css:"'Nunito',system-ui,sans-serif"},
+  {id:'rubik',     name:'Rubik',            css:"'Rubik',system-ui,sans-serif"},
+  {id:'manrope',   name:'Manrope',          css:"'Manrope',system-ui,sans-serif"},
+  {id:'comfortaa', name:'Comfortaa',        css:"'Comfortaa',system-ui,sans-serif"},
+  {id:'exo2',      name:'Exo 2',            css:"'Exo 2',system-ui,sans-serif"},
+  {id:'unbounded', name:'Unbounded',        css:"'Unbounded',system-ui,sans-serif"},
+  {id:'playfair',  name:'Playfair Display', css:"'Playfair Display',Georgia,serif"},
+  {id:'jetbrains', name:'JetBrains Mono',   css:"'JetBrains Mono',Consolas,monospace"},
+  {id:'caveat',    name:'Caveat',           css:"'Caveat','Segoe Script',cursive"},
 ];
 
 let S;
@@ -374,6 +431,8 @@ try { S = {...DEF, ...JSON.parse(localStorage.getItem('schoolSchedule')||'{}')};
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && localStorage.getItem('schoolSchedule')===null) S.anim = false;
 if (typeof S.selected==='number' && !S.starts[S.selected]) S.selected = null;
 if (S.selected!==null && S.selected!=='custom' && typeof S.selected!=='number') S.selected = null;
+if (!THEMES.some(t=>t.id===S.theme)) S.theme = DEF.theme;
+if (!FONTS.some(f=>f.id===S.font)) S.font = DEF.font;
 const save = () => { try{localStorage.setItem('schoolSchedule', JSON.stringify(S));}catch(e){} };
 
 /* ---------- Утилиты ---------- */
@@ -390,8 +449,7 @@ function build(start){
   for(let i=1;i<=S.lessons;i++){
     rows.push({type:'lesson', n:i, s:t, e:t+S.lessonLen}); t += S.lessonLen;
     if(i<S.lessons){
-      const big = S.bigAfter===i;
-      const len = big ? S.bigLen : S.breakLen;
+      const big = S.bigAfter===i; const len = big ? S.bigLen : S.breakLen;
       if(len>0){ rows.push({type:big?'big':'break', s:t, e:t+len}); t += len; }
     }
   }
@@ -404,7 +462,6 @@ function build(start){
 const title = 'Школьное Расписание'.split(' ');
 let li = 0;
 $('#introTitle').innerHTML = title.map(w=>'<span style="animation-delay:'+(0.5+0.25*li++)+'s">'+w+'</span>').join('');
-
 function finishIntro(){
   const intro = $('#intro');
   intro.classList.add('hide');
@@ -414,8 +471,7 @@ function finishIntro(){
 
 /* ---------- Кнопки времени ---------- */
 function renderCards(animate){
-  const g = $('#timeGrid');
-  g.innerHTML = '';
+  const g = $('#timeGrid'); g.innerHTML = '';
   S.starts.forEach((st,i)=>{
     const b = build(st);
     const el = document.createElement('button');
@@ -429,10 +485,7 @@ function renderCards(animate){
       el.style.setProperty('--mx', (e.clientX-r.left)+'px');
       el.style.setProperty('--my', (e.clientY-r.top)+'px');
     });
-    el.addEventListener('click', e=>{
-      ripple(el,e);
-      selectTime(i);
-    });
+    el.addEventListener('click', e=>{ ripple(el,e); selectTime(i); });
     if(!animate){ el.classList.remove('reveal'); }
     g.appendChild(el);
   });
@@ -448,18 +501,12 @@ function markActive(){
   document.querySelectorAll('.time-btn').forEach((b,k)=>b.classList.toggle('active', S.selected===k));
   $('#customBox').classList.toggle('active', S.selected==='custom');
 }
-
 function selectTime(i){
   const panel = $('#panel');
   if(S.selected===i && panel.classList.contains('open')){
-    S.selected = null; save();
-    panel.classList.remove('open');
-    markActive();
-    return;
+    S.selected = null; save(); panel.classList.remove('open'); markActive(); return;
   }
-  S.selected = i; save();
-  markActive();
-  renderTable(true);
+  S.selected = i; save(); markActive(); renderTable(true);
   panel.classList.add('open');
   setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'start'}), 250);
 }
@@ -475,8 +522,7 @@ function useCustom(){
   const panel = $('#panel');
   const same = S.selected==='custom' && panel.classList.contains('open');
   S.custom = v; S.selected = 'custom'; save();
-  markActive(); updateCustomMeta();
-  renderTable(!same);
+  markActive(); updateCustomMeta(); renderTable(!same);
   panel.classList.add('open');
   if(!same) setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'start'}), 250);
 }
@@ -498,9 +544,8 @@ function renderTable(animate){
   const st = getStart(), b = build(st);
   $('#panelTitle').textContent = 'Расписание с '+st+(S.selected==='custom'?' (своё время)':'');
   const chips = [
-    ['Начало', st], ['Конец', fmt(b.end)],
-    ['Уроков', S.lessons], ['Время уроков', dur(b.lessonsTime)],
-    ['Время перемен', dur(b.breaksTime)], ['Всего в школе', dur(b.total)]
+    ['Начало', st], ['Конец', fmt(b.end)], ['Уроков', S.lessons],
+    ['Время уроков', dur(b.lessonsTime)], ['Время перемен', dur(b.breaksTime)], ['Всего в школе', dur(b.total)]
   ];
   $('#chips').innerHTML = chips.map((c,i)=>'<div class="chip" style="--i:'+i+(animate?'':';animation:none')+'"><small>'+c[0]+'</small><b>'+c[1]+'</b></div>').join('');
   $('#tbody').innerHTML = b.rows.map((r,i)=>{
@@ -510,7 +555,6 @@ function renderTable(animate){
   }).join('');
   updateLive();
 }
-
 function updateLive(){
   const now = new Date(), nm = now.getHours()*60 + now.getMinutes() + now.getSeconds()/60;
   const badge = $('#liveBadge');
@@ -527,7 +571,8 @@ function updateLive(){
       tr.classList.add('now');
       const left = Math.ceil(e-nm), pr = ((nm-s)/(e-s)*100).toFixed(1);
       cell.innerHTML = 'Идёт · ещё '+left+' мин<div class="prog"><i style="width:'+pr+'%"></i></div>';
-      text = tr.firstElementChild.textContent.replace('🍽 ','')+' · осталось '+left+' мин'; live = true;
+      text = tr.firstElementChild.textContent.replace('🍽 ','')+' · осталось '+left+' мин';
+      live = true;
     } else cell.textContent = '';
   });
   if(!live){
@@ -557,6 +602,7 @@ function syncInputs(){
   $('#customTime').value = S.custom;
   document.querySelectorAll('#timesInputs input').forEach((inp,i)=>inp.value = S.starts[i]);
   document.querySelectorAll('.theme').forEach(t=>t.classList.toggle('sel', t.dataset.id===S.theme));
+  document.querySelectorAll('.font-btn').forEach(f=>f.classList.toggle('sel', f.dataset.id===S.font));
 }
 function changed(){
   S.bigAfter = Math.min(S.bigAfter, Math.max(0,S.lessons-1));
@@ -580,18 +626,31 @@ document.querySelectorAll('#timesInputs input').forEach(inp=>{
   });
 });
 
+/* Темы */
 $('#themes').innerHTML = THEMES.map(t=>
   '<button class="theme" data-id="'+t.id+'"><span class="sw" style="background:conic-gradient('+t.c.join(',')+','+t.c[0]+')"></span>'+t.name+'</button>').join('');
 document.querySelectorAll('.theme').forEach(b=>b.addEventListener('click',()=>{
   S.theme = b.dataset.id; applyTheme(); save(); syncInputs();
 }));
 function applyTheme(){ document.documentElement.dataset.theme = S.theme; }
-function applyAnim(){ document.body.classList.toggle('no-anim', !S.anim); }
 
+/* Шрифты */
+$('#fonts').innerHTML = FONTS.map(f=>
+  '<button class="font-btn" data-id="'+f.id+'" style="font-family:'+f.css+'"><span class="aa">Аа</span><span class="fn">'+f.name+'</span></button>').join('');
+document.querySelectorAll('.font-btn').forEach(b=>b.addEventListener('click',()=>{
+  S.font = b.dataset.id; applyFont(); save(); syncInputs();
+}));
+function applyFont(){
+  const f = FONTS.find(x=>x.id===S.font) || FONTS[0];
+  document.documentElement.style.setProperty('--font', f.css);
+}
+
+function applyAnim(){ document.body.classList.toggle('no-anim', !S.anim); }
 $('#animToggle').addEventListener('change', e=>{ S.anim = e.target.checked; applyAnim(); save(); });
+
 $('#reset').addEventListener('click', ()=>{
-  S = {...DEF, starts:[...DEF.starts]}; save(); applyTheme(); applyAnim();
-  syncInputs(); renderCards(false); markActive();
+  S = {...DEF, starts:[...DEF.starts]}; save();
+  applyTheme(); applyFont(); applyAnim(); syncInputs(); renderCards(false); markActive();
   $('#panel').classList.remove('open');
 });
 
@@ -604,7 +663,7 @@ overlay.addEventListener('click', closeS);
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeS(); });
 
 /* ---------- Старт ---------- */
-applyTheme(); applyAnim(); syncInputs(); renderCards(true); markActive(); tick();
+applyTheme(); applyFont(); applyAnim(); syncInputs(); renderCards(true); markActive(); tick();
 if(S.selected!==null){ renderTable(false); $('#panel').classList.add('open'); }
 if(S.anim){ setTimeout(finishIntro, 2800); }
 else { $('#intro').remove(); document.body.classList.add('ready'); }
