@@ -92,7 +92,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;ma
 .hero p{color:var(--muted);font-size:17px}
 
 /* ===== Кнопки времени ===== */
-.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:30px}
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
 @media(max-width:820px){.time-grid{grid-template-columns:repeat(2,1fr)}}
 .time-btn{
   position:relative;overflow:hidden;text-align:left;padding:22px 20px;border-radius:24px;
@@ -112,8 +112,32 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;ma
 .time-btn.active .lbl,.time-btn.active .meta{color:var(--on);opacity:.85}
 .ripple{position:absolute;border-radius:50%;background:currentColor;opacity:.25;transform:scale(0);animation:rip .7s ease-out forwards;pointer-events:none}
 @keyframes rip{to{transform:scale(3.5);opacity:0}}
-.time-btn .float{animation:bob 4s ease-in-out infinite;animation-delay:calc(var(--i)*.4s)}
-@keyframes bob{50%{transform:translateY(-3px)}}
+
+/* ===== Своё время ===== */
+.custom{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:18px 22px;border-radius:24px;margin-bottom:30px;
+  background:var(--card);border:1.5px dashed var(--border);backdrop-filter:blur(16px);
+  transition:border-color .4s,box-shadow .5s var(--ease),transform .5s var(--ease)}
+.custom:hover{transform:translateY(-3px)}
+.custom.active{border-style:solid;border-color:var(--accent);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 20%,transparent),0 18px 40px color-mix(in srgb,var(--accent) 25%,transparent)}
+.custom-l b{display:flex;align-items:center;gap:8px;font-size:18px}
+.custom-l b::before{content:"✎";display:inline-grid;place-items:center;width:28px;height:28px;border-radius:9px;font-size:15px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--on)}
+.custom-l span{display:block;font-size:13px;color:var(--muted);margin-top:5px}
+.custom-l em{font-style:normal;color:var(--accent2);font-weight:600}
+.custom-r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.custom-r input[type=time]{font-size:24px;padding:9px 14px;width:auto;letter-spacing:1px;font-variant-numeric:tabular-nums}
+.step{width:42px;height:42px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:20px;font-weight:700;
+  transition:transform .35s var(--ease),background .3s}
+.step:hover{transform:scale(1.12);background:color-mix(in srgb,var(--accent) 22%,transparent)}
+.step:active{transform:scale(.9)}
+.go{padding:12px 22px;border-radius:14px;font-weight:700;color:var(--on);
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 40%,transparent);
+  transition:transform .4s var(--ease),box-shadow .4s}
+.go:hover{transform:translateY(-3px);box-shadow:0 14px 28px color-mix(in srgb,var(--accent) 50%,transparent)}
+.go:active{transform:scale(.95)}
 
 /* ===== Панель расписания ===== */
 .panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .7s var(--ease),opacity .5s;opacity:0}
@@ -191,6 +215,7 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,va
 .btn:hover{transform:translateY(-3px);background:color-mix(in srgb,var(--accent) 20%,transparent)}
 .hint{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.4}
 footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px}
+@media(max-width:560px){.custom{padding:16px}.custom-r{width:100%}.custom-r input[type=time]{flex:1;min-width:0}.go{width:100%}}
 </style>
 </head>
 <body>
@@ -233,10 +258,24 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px}
 
   <section class="hero">
     <h1 class="reveal" style="--d:1">Школьное расписание</h1>
-    <p class="reveal" style="--d:2">Выберите время начала уроков — и увидите уроки и перемены</p>
+    <p class="reveal" style="--d:2">Выберите время начала уроков или задайте своё</p>
   </section>
 
   <div class="time-grid" id="timeGrid"></div>
+
+  <!-- Своё время -->
+  <div class="custom reveal" style="--d:5" id="customBox">
+    <div class="custom-l">
+      <b>Своё время</b>
+      <span id="customMeta">Укажите любое время начала первого урока</span>
+    </div>
+    <div class="custom-r">
+      <button class="step" id="cMinus" title="−5 минут" aria-label="Минус 5 минут">−</button>
+      <input type="time" id="customTime" aria-label="Время первого урока">
+      <button class="step" id="cPlus" title="+5 минут" aria-label="Плюс 5 минут">+</button>
+      <button class="go" id="customGo">Показать</button>
+    </div>
+  </div>
 
   <section class="panel" id="panel">
     <div class="inner">
@@ -298,7 +337,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px}
   <div class="sec" style="--i:2">
     <h4>Время кнопок</h4>
     <div class="times" id="timesInputs"></div>
-    <p class="hint">Время начала первого урока для каждой из 4 кнопок.</p>
+    <p class="hint">Время начала первого урока для каждой из 4 кнопок. Своё время можно задать на главной странице.</p>
   </div>
 
   <div class="sec" style="--i:3">
@@ -319,7 +358,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px}
 <script>
 const $ = s => document.querySelector(s);
 const DEF = {lessonLen:45, breakLen:10, lessons:6, bigAfter:3, bigLen:20,
-  starts:['08:00','10:00','14:00','16:00'], theme:'aurora', anim:true, selected:null};
+  starts:['08:00','10:00','14:00','16:00'], custom:'09:30', theme:'aurora', anim:true, selected:null};
 const THEMES = [
   {id:'aurora', name:'Аврора', c:['#6c4bff','#00c2ff','#ff4fd8']},
   {id:'sunset', name:'Закат',  c:['#ff5e62','#ff9966','#c33764']},
@@ -333,6 +372,8 @@ const THEMES = [
 let S;
 try { S = {...DEF, ...JSON.parse(localStorage.getItem('schoolSchedule')||'{}')}; } catch(e){ S = {...DEF}; }
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && localStorage.getItem('schoolSchedule')===null) S.anim = false;
+if (typeof S.selected==='number' && !S.starts[S.selected]) S.selected = null;
+if (S.selected!==null && S.selected!=='custom' && typeof S.selected!=='number') S.selected = null;
 const save = () => { try{localStorage.setItem('schoolSchedule', JSON.stringify(S));}catch(e){} };
 
 /* ---------- Утилиты ---------- */
@@ -342,6 +383,7 @@ const fmt = m => { m = ((m%1440)+1440)%1440; return pad(Math.floor(m/60))+':'+pa
 const plural = (n,f) => { n=Math.abs(n)%100; const n1=n%10; if(n>10&&n<20) return f[2]; if(n1>1&&n1<5) return f[1]; if(n1===1) return f[0]; return f[2]; };
 const dur = m => { const h=Math.floor(m/60), mm=m%60; return (h?h+' ч ':'')+(mm||!h? mm+' мин':'').trim(); };
 const clamp = (v,a,b) => Math.min(b,Math.max(a,Math.round(+v)||0));
+const getStart = () => S.selected==='custom' ? S.custom : S.starts[S.selected];
 
 function build(start){
   let t = toMin(start); const rows = [];
@@ -394,6 +436,7 @@ function renderCards(animate){
     if(!animate){ el.classList.remove('reveal'); }
     g.appendChild(el);
   });
+  updateCustomMeta();
 }
 function ripple(el,e){
   const r = el.getBoundingClientRect(), s = Math.max(r.width,r.height);
@@ -401,28 +444,59 @@ function ripple(el,e){
   d.style.cssText = `width:${s}px;height:${s}px;left:${e.clientX-r.left-s/2}px;top:${e.clientY-r.top-s/2}px`;
   el.appendChild(d); setTimeout(()=>d.remove(),700);
 }
+function markActive(){
+  document.querySelectorAll('.time-btn').forEach((b,k)=>b.classList.toggle('active', S.selected===k));
+  $('#customBox').classList.toggle('active', S.selected==='custom');
+}
 
 function selectTime(i){
   const panel = $('#panel');
   if(S.selected===i && panel.classList.contains('open')){
     S.selected = null; save();
     panel.classList.remove('open');
-    document.querySelectorAll('.time-btn').forEach(b=>b.classList.remove('active'));
+    markActive();
     return;
   }
   S.selected = i; save();
-  document.querySelectorAll('.time-btn').forEach((b,k)=>b.classList.toggle('active',k===i));
+  markActive();
   renderTable(true);
   panel.classList.add('open');
   setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'start'}), 250);
 }
 
+/* ---------- Своё время ---------- */
+function updateCustomMeta(){
+  const b = build(S.custom);
+  $('#customMeta').innerHTML = S.lessons+' '+plural(S.lessons,['урок','урока','уроков'])+' · закончатся в <em>'+fmt(b.end)+'</em>';
+}
+function useCustom(){
+  const v = $('#customTime').value;
+  if(!v){ $('#customTime').value = S.custom; return; }
+  const panel = $('#panel');
+  const same = S.selected==='custom' && panel.classList.contains('open');
+  S.custom = v; S.selected = 'custom'; save();
+  markActive(); updateCustomMeta();
+  renderTable(!same);
+  panel.classList.add('open');
+  if(!same) setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'start'}), 250);
+}
+function stepCustom(d){
+  const v = $('#customTime').value || S.custom;
+  $('#customTime').value = fmt(toMin(v)+d);
+  useCustom();
+}
+$('#customTime').addEventListener('change', useCustom);
+$('#customGo').addEventListener('click', e=>{ ripple($('#customGo'), e); useCustom(); });
+$('#cMinus').addEventListener('click', ()=>stepCustom(-5));
+$('#cPlus').addEventListener('click', ()=>stepCustom(5));
+$('#customTime').addEventListener('keydown', e=>{ if(e.key==='Enter') useCustom(); });
+
 /* ---------- Таблица ---------- */
 function renderTable(animate){
   const panel = $('#panel');
   if(S.selected===null){ panel.classList.remove('open'); return; }
-  const st = S.starts[S.selected], b = build(st);
-  $('#panelTitle').textContent = 'Расписание с '+st;
+  const st = getStart(), b = build(st);
+  $('#panelTitle').textContent = 'Расписание с '+st+(S.selected==='custom'?' (своё время)':'');
   const chips = [
     ['Начало', st], ['Конец', fmt(b.end)],
     ['Уроков', S.lessons], ['Время уроков', dur(b.lessonsTime)],
@@ -480,6 +554,7 @@ function syncInputs(){
   pairs.forEach(k=>{ $('#'+k+'R').value = S[k]; $('#'+k+'N').value = S[k]; });
   $('#bigAfterR').max = $('#bigAfterN').max = Math.max(0,S.lessons-1);
   $('#animToggle').checked = S.anim;
+  $('#customTime').value = S.custom;
   document.querySelectorAll('#timesInputs input').forEach((inp,i)=>inp.value = S.starts[i]);
   document.querySelectorAll('.theme').forEach(t=>t.classList.toggle('sel', t.dataset.id===S.theme));
 }
@@ -516,9 +591,7 @@ function applyAnim(){ document.body.classList.toggle('no-anim', !S.anim); }
 $('#animToggle').addEventListener('change', e=>{ S.anim = e.target.checked; applyAnim(); save(); });
 $('#reset').addEventListener('click', ()=>{
   S = {...DEF, starts:[...DEF.starts]}; save(); applyTheme(); applyAnim();
-  syncInputs();
-  document.querySelectorAll('#timesInputs input').forEach((inp,i)=>inp.value=S.starts[i]);
-  renderCards(false);
+  syncInputs(); renderCards(false); markActive();
   $('#panel').classList.remove('open');
 });
 
@@ -531,7 +604,7 @@ overlay.addEventListener('click', closeS);
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeS(); });
 
 /* ---------- Старт ---------- */
-applyTheme(); applyAnim(); syncInputs(); renderCards(true); tick();
+applyTheme(); applyAnim(); syncInputs(); renderCards(true); markActive(); tick();
 if(S.selected!==null){ renderTable(false); $('#panel').classList.add('open'); }
 if(S.anim){ setTimeout(finishIntro, 2800); }
 else { $('#intro').remove(); document.body.classList.add('ready'); }
